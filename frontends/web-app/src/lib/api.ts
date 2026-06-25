@@ -43,6 +43,7 @@ export const authApi = {
   login: (data: any) => api.post("/api/auth/login", data),
   me: () => api.get("/api/auth/me"),
   saveKeys: (data: any) => api.post("/api/auth/keys", data),
+  logout: () => Promise.resolve(),
 };
 
 export const reposApi = {
