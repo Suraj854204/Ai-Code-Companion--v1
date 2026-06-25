@@ -1,0 +1,14 @@
+{
+  "name": "@aicc/database",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "prisma generate",
+    "db:push": "prisma db push",
+    "studio": "prisma studio",
+    "build": "tsc"
+  },
+  "dependencies": {"@prisma/client": "^6.19.3"},
+  "devDependencies": {"prisma": "^6.19.3", "typescript": "^5.6.3"}
+}

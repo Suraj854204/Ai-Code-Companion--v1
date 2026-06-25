@@ -1,0 +1,26 @@
+{
+  "name": "ai-code-companion-neon-microservices",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "packages/*",
+    "frontends/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n gateway,auth,github,ai,scanner,report,notify,web -c auto \"npm run dev -w services/api-gateway\" \"npm run dev -w services/auth-service\" \"npm run dev -w services/github-service\" \"npm run dev -w services/ai-service\" \"npm run dev -w services/scanner-service\" \"npm run dev -w services/report-service\" \"npm run dev -w services/notification-service\" \"npm run dev -w frontends/web-app\"",
+    "build": "npm run build -ws --if-present",
+    "db:generate": "npm run generate -w @aicc/database",
+    "db:push": "npm run db:push -w @aicc/database",
+    "db:studio": "npm run studio -w @aicc/database",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "dependencies": {
+    "@aicc/shared": "^1.0.0",
+    "resend": "^6.14.0"
+  }
+}

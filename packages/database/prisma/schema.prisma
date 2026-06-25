@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  password     String
+  name         String?
+  avatarUrl    String?  @map("avatar_url")
+  githubToken  String?  @map("github_token")
+  claudeApiKey String?  @map("claude_api_key")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  repos        Repo[]
+  chats        Chat[]
+  reports      Report[]
+  @@map("users")
+}
+
+model Repo {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @map("user_id") @db.Uuid
+  repoName     String   @map("repo_name")
+  repoFullName String   @map("repo_full_name")
+  repoUrl      String?  @map("repo_url")
+  owner        String?
+  fileTree     Json?    @map("file_tree")
+  keyFiles     Json?    @map("key_files")
+  techStack    Json?    @map("tech_stack")
+  summary      String?
+  lastScanned  DateTime? @map("last_scanned")
+  createdAt    DateTime @default(now()) @map("created_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chats        Chat[]
+  reports      Report[]
+  @@unique([userId, repoFullName])
+  @@index([userId])
+  @@map("repos")
+}
+
+model Chat {
+  id        String   @id @default(uuid()) @db.Uuid
+  repoId    String   @map("repo_id") @db.Uuid
+  userId    String   @map("user_id") @db.Uuid
+  fileName  String?  @map("file_name")
+  messages  Json     @default("[]")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  repo      Repo     @relation(fields: [repoId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([repoId])
+  @@index([userId])
+  @@map("chats")
+}
+
+model Report {
+  id          String   @id @default(uuid()) @db.Uuid
+  repoId      String   @map("repo_id") @db.Uuid
+  userId      String   @map("user_id") @db.Uuid
+  deployScore Int      @map("deploy_score")
+  checks      Json
+  grade       String
+  shareToken  String   @unique @map("share_token")
+  envExample  String?  @map("env_example")
+  createdAt   DateTime @default(now()) @map("created_at")
+  repo        Repo     @relation(fields: [repoId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([shareToken])
+  @@index([repoId])
+  @@map("reports")
+}
