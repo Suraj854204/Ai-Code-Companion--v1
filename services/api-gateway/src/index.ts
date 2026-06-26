@@ -84,9 +84,14 @@ const addUserHeaders = (proxyReq: any, req: any, res: any) => {
   }
 };
 
-const proxyErrorHandler = (err: any, _req: any, res: any) => {
-  console.error("API GATEWAY PROXY ERROR:", err.message);
-
+const proxyErrorHandler = (err: any, req: any, res: any) => {
+  console.error("API GATEWAY PROXY ERROR:", {
+    message: err?.message,
+    code: err?.code,
+    target: req?.url,
+    stack: err?.stack,
+  });
+  
   if (!res.headersSent) {
     res.status(502).json({
       error: "Service unavailable",
