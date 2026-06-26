@@ -9,10 +9,25 @@ import crypto from "crypto";
 import { prisma } from "@aicc/database";
 
 const app = express();
+app.set("trust proxy", 1);
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ai-code-companion-v1-web-app.vercel.app",
+];
+
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: "2mb" }));
 app.use(morgan("dev"));
+
 const key = () =>
   Buffer.from(
     (process.env.ENCRYPT_KEY || "dev-key").padEnd(32, "0").slice(0, 32),
