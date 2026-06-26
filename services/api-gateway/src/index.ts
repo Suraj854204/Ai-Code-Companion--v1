@@ -9,31 +9,23 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import { serviceUrls } from "@aicc/shared";
 
 const app = express();
-
 app.set("trust proxy", 1);
 
 const allowedOrigins = [
   "http://localhost:3000",
   "https://ai-code-companion-v1-web-app.vercel.app",
-  process.env.FRONTEND_URL,
-].filter(Boolean) as string[];
-
-app.use(helmet());
+];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error(`CORS blocked: ${origin}`));
-    },
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
 );
 
-
+app.use(helmet());
 app.use(morgan("dev"));
 
 console.log("Allowed CORS origins:", allowedOrigins);
@@ -91,7 +83,7 @@ const proxyErrorHandler = (err: any, req: any, res: any) => {
     target: req?.url,
     stack: err?.stack,
   });
-  
+
   if (!res.headersSent) {
     res.status(502).json({
       error: "Service unavailable",
