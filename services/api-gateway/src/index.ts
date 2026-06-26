@@ -10,6 +10,8 @@ import { serviceUrls } from "@aicc/shared";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 const allowedOrigins = [
   "http://localhost:3000",
   "https://ai-code-companion-v1-web-app.vercel.app",
