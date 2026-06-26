@@ -17,9 +17,22 @@ import { Octokit } from "@octokit/rest";
 import { prisma } from "@aicc/database";
 
 const app = express();
+app.set("trust proxy", 1);
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ai-code-companion-v1-web-app.vercel.app",
+];
 
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-user-id", "x-user-email"],
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: "10mb" }));
 app.use(morgan("dev"));
 
@@ -428,8 +441,8 @@ app.get("/file", async (req: any, res, next) => {
     const fileContent =
       !Array.isArray(content.data) && content.data.content
         ? Buffer.from(content.data.content, "base64")
-            .toString("utf8")
-            .slice(0, 8000)
+          .toString("utf8")
+          .slice(0, 8000)
         : "";
 
     res.json({
