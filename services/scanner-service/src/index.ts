@@ -68,14 +68,14 @@ app.post("/repo", async (req: any, res, next) => {
     const scan = await axios.post(`${githubUrl}/scan`, req.body, { headers });
 
     const classified = await axios.post(
-      `${aiUrl}/classify`,
-      {
-        file_tree: scan.data.file_tree,
-        key_files: scan.data.key_files,
-        repo_id: scan.data.repo_id,
-      },
-      { headers },
-    );
+  `${aiUrl}/api/ai/classify`,
+  {
+    file_tree: scan.data.file_tree,
+    key_files: scan.data.key_files,
+    repo_id: scan.data.repo_id,
+  },
+  { headers },
+);
 
     res.json({
       ...scan.data,
