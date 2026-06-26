@@ -10,9 +10,33 @@ import { serviceUrls } from "@aicc/shared";
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://ai-code-companion-v1-web-app.vercel.app",
+  process.env.FRONTEND_URL,
+].filter(Boolean) as string[];
+
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked: ${origin}`));
+    },
+    credentials: true,
+  }),
+);
+
+app.options("*", cors());
+
 app.use(morgan("dev"));
+
+console.log("Allowed CORS origins:", allowedOrigins);
+console.log("Auth service:", serviceUrls.auth);
 
 app.get("/health", (_req, res) => {
   res.json({
@@ -41,11 +65,7 @@ const addUserHeaders = (proxyReq: any, req: any, res: any) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    const decoded: any = jwt.verify(
-      token,
-      process.env.JWT_SECRET || "dev-secret",
-    );
-
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET || "dev-secret");
     const userId = decoded.id || decoded.userId || decoded.sub;
 
     if (!userId) {
@@ -170,8 +190,8 @@ app.use((req, res) => {
   });
 });
 
-const PORT = Number(process.env.API_GATEWAY_PORT || 4000);
+const PORT = Number(process.env.API_GATEWAY_PORT || process.env.PORT || 4000);
 
 app.listen(PORT, () => {
-  console.log("api-gateway running");
+  console.log(`api-gateway running on ${PORT}`);
 });
