@@ -127,9 +127,11 @@ app.use(
   }),
 );
 
-const aiTarget = process.env.AI_SERVICE_URL || "https://aiccai-service-production.up.railway.app";
+const aiTarget = process.env.AI_SERVICE_URL;
 
-console.log("AI proxy target:", aiTarget);
+if (!aiTarget) {
+  throw new Error("AI_SERVICE_URL is required");
+}
 
 app.use(
   "/api/ai",
