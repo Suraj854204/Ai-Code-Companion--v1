@@ -127,7 +127,7 @@ app.use(
   }),
 );
 
-const aiTarget = "https://aiccai-service-production.up.railway.app";
+const aiTarget = process.env.AI_SERVICE_URL || "https://aiccai-service-production.up.railway.app";
 
 console.log("AI proxy target:", aiTarget);
 
@@ -136,7 +136,9 @@ app.use(
   createProxyMiddleware({
     target: aiTarget,
     changeOrigin: true,
+
     pathRewrite: { "^/api/ai": "" },
+
     proxyTimeout: 180000,
     timeout: 180000,
     on: {
