@@ -109,12 +109,12 @@ async function callAI(
   });
 
   const response = await ai.models.generateContent({
-    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
-    contents: userMessage,
-    config: {
-      systemInstruction: systemPrompt,
-    },
-  });
+  model: "gemini-2.5-flash-lite",
+  contents: userMessage,
+  config: {
+    systemInstruction: systemPrompt,
+  },
+});
 
   return response.text || "";
 }
