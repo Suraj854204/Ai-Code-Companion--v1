@@ -13,7 +13,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import crypto from "crypto";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { prisma } from "@aicc/database";
 
 const app = express();
@@ -101,17 +101,22 @@ async function callAI(
   userMessage: string,
 ) {
   console.log("🔥 GEMINI CALL:", new Date().toLocaleTimeString());
+
   const apiKey = await getGeminiKey(userId);
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-
-  const model = genAI.getGenerativeModel({
-    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
-    systemInstruction: systemPrompt,
+  const ai = new GoogleGenAI({
+    apiKey,
   });
 
-  const result = await model.generateContent(userMessage);
-  return result.response.text();
+  const response = await ai.models.generateContent({
+    model: process.env.GEMINI_MODEL || "gemini-flash-latest",
+    contents: userMessage,
+    config: {
+      systemInstruction: systemPrompt,
+    },
+  });
+
+  return response.text || "";
 }
 
 app.get("/health", (_req, res) => {
