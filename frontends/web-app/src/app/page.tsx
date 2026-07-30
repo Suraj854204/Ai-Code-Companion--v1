@@ -34,6 +34,7 @@ export default function Page() {
       <div className="ap-grid" aria-hidden="true"/>
       <div className="ap-glow ap-glow-a" aria-hidden="true"/>
       <div className="ap-glow ap-glow-b" aria-hidden="true"/>
+      <div className="ap-glow ap-glow-c" aria-hidden="true"/>
       <div className="ap-scanlines" aria-hidden="true"/>
 
       <div className="ap-shell">
@@ -49,34 +50,34 @@ export default function Page() {
                 <span className="term-title">codecompanion — zsh</span>
               </div>
               <div className="term-body">
-                <div className="term-line"><span className="term-prompt">❯</span><span className="term-cmd"> cc scan <span className="term-arg">--repo</span> my-api</span></div>
-                <div className="term-line term-out">  Fetching file tree… <span className="term-dot-anim">…</span></div>
-                <div className="term-line term-out">  <span className="term-ok">✓</span> 142 files indexed in 1.2s</div>
-                <div className="term-line term-out">  <span className="term-ok">✓</span> 7 key files extracted</div>
+                <div className="term-line" style={{ ["--li" as any]: 0 }}><span className="term-prompt">❯</span><span className="term-cmd"> cc scan <span className="term-arg">--repo</span> my-api</span></div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 1 }}>  Fetching file tree… <span className="term-dot-anim">…</span></div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 2 }}>  <span className="term-ok">✓</span> 142 files indexed in 1.2s</div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 3 }}>  <span className="term-ok">✓</span> 7 key files extracted</div>
                 <div className="term-spacer"/>
-                <div className="term-line"><span className="term-prompt">❯</span><span className="term-cmd"> cc fix <span className="term-arg">--smart</span></span></div>
-                <div className="term-line term-out">  Analyzing related files…</div>
-                <div className="term-line term-out">  <span className="term-ok">✓</span> Patch generated: auth/middleware.ts</div>
-                <div className="term-line term-out">  <span className="term-ok">✓</span> PR #47 created successfully</div>
+                <div className="term-line" style={{ ["--li" as any]: 4 }}><span className="term-prompt">❯</span><span className="term-cmd"> cc fix <span className="term-arg">--smart</span></span></div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 5 }}>  Analyzing related files…</div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 6 }}>  <span className="term-ok">✓</span> Patch generated: auth/middleware.ts</div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 7 }}>  <span className="term-ok">✓</span> PR #47 created successfully</div>
                 <div className="term-spacer"/>
-                <div className="term-line"><span className="term-prompt">❯</span><span className="term-cmd"> cc security <span className="term-arg">--scan</span></span></div>
-                <div className="term-line term-out">  Score: <span className="term-score">92</span>/100 · Grade: <span className="term-grade">A</span></div>
-                <div className="term-line term-out">  <span className="term-warn">⚠</span> 1 critical · 2 medium issues</div>
+                <div className="term-line" style={{ ["--li" as any]: 8 }}><span className="term-prompt">❯</span><span className="term-cmd"> cc security <span className="term-arg">--scan</span></span></div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 9 }}>  Score: <span className="term-score">92</span>/100 · Grade: <span className="term-grade">A</span></div>
+                <div className="term-line term-out" style={{ ["--li" as any]: 10 }}>  <span className="term-warn">⚠</span> 1 critical · 2 medium issues</div>
                 <div className="term-cursor"/>
               </div>
             </div>
 
             {/* Stat chips */}
             <div className="ap-chips">
-              <div className="ap-chip">
+              <div className="ap-chip" style={{ ["--ci" as any]: 0 }}>
                 <span className="ap-chip-n">142</span>
                 <span className="ap-chip-l">Files scanned</span>
               </div>
-              <div className="ap-chip ap-chip-gold">
+              <div className="ap-chip ap-chip-gold" style={{ ["--ci" as any]: 1 }}>
                 <span className="ap-chip-n">47</span>
                 <span className="ap-chip-l">PRs created</span>
               </div>
-              <div className="ap-chip">
+              <div className="ap-chip" style={{ ["--ci" as any]: 2 }}>
                 <span className="ap-chip-n">98%</span>
                 <span className="ap-chip-l">Fix accuracy</span>
               </div>
@@ -135,9 +136,9 @@ export default function Page() {
             </div>
 
             {/* Form */}
-            <div className="ap-form" onKeyDown={handleKeyDown}>
+            <div className="ap-form" onKeyDown={handleKeyDown} key={mode}>
               {mode === "signup" && (
-                <div className={`ap-field ${focused === "name" ? "focused" : ""}`}>
+                <div className={`ap-field ${focused === "name" ? "focused" : ""}`} style={{ ["--fi" as any]: 0 }}>
                   <label className="ap-field-label" htmlFor="ap-name">Name</label>
                   <input id="ap-name" className="ap-input" placeholder="Ada Lovelace" autoComplete="name"
                     onFocus={() => setFocused("name")} onBlur={() => setFocused(null)}
@@ -145,14 +146,14 @@ export default function Page() {
                 </div>
               )}
 
-              <div className={`ap-field ${focused === "email" ? "focused" : ""}`}>
+              <div className={`ap-field ${focused === "email" ? "focused" : ""}`} style={{ ["--fi" as any]: mode === "signup" ? 1 : 0 }}>
                 <label className="ap-field-label" htmlFor="ap-email">Email</label>
                 <input id="ap-email" className="ap-input" placeholder="you@company.com" type="email" autoComplete="email"
                   onFocus={() => setFocused("email")} onBlur={() => setFocused(null)}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}/>
               </div>
 
-              <div className={`ap-field ${focused === "password" ? "focused" : ""}`}>
+              <div className={`ap-field ${focused === "password" ? "focused" : ""}`} style={{ ["--fi" as any]: mode === "signup" ? 2 : 1 }}>
                 <label className="ap-field-label" htmlFor="ap-password">Password</label>
                 <div className="ap-input-wrap">
                   <input id="ap-password" className="ap-input ap-input-pw"
@@ -215,32 +216,37 @@ export default function Page() {
       </div>
 
       <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap");
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-          --ap-bg:       #030810;
-          --ap-panel:    #080f1e;
-          --ap-raised:   #0c1525;
-          --ap-border:   #18304a;
-          --ap-soft:     #0e2038;
-          --ap-ink:      #ddeeff;
-          --ap-dim:      #5a90b8;
-          --ap-faint:    #254060;
-          --ap-cyan:     #00d4ff;
-          --ap-cyan-dim: rgba(0,212,255,0.09);
-          --ap-cyan-g:   rgba(0,212,255,0.16);
-          --ap-cyan-l:   rgba(0,212,255,0.22);
-          --ap-gold:     #ffb340;
-          --ap-gold-dim: rgba(255,179,64,0.10);
-          --ap-gold-g:   rgba(255,179,64,0.16);
-          --ap-gold-l:   rgba(255,179,64,0.22);
-          --ap-green:    #2ecc8a;
-          --ap-red:      #ff4f6b;
-          --ap-red-dim:  rgba(255,79,107,0.10);
+          /* Same Night Build palette as the dashboard: graphite-aubergine
+             base, teal = system/structured, gold = AI-generated. */
+          --ap-bg:       #0b0a12;
+          --ap-panel:    #151322;
+          --ap-raised:   #1a1729;
+          --ap-border:   #332b4c;
+          --ap-soft:     #211d33;
+          --ap-ink:      #f2eefc;
+          --ap-dim:      #a89bc4;
+          --ap-faint:    #423a5c;
+          --ap-cyan:     #2fe3c4;
+          --ap-cyan-dim: rgba(47,227,196,0.1);
+          --ap-cyan-g:   rgba(47,227,196,0.18);
+          --ap-cyan-l:   rgba(47,227,196,0.26);
+          --ap-gold:     #ffb454;
+          --ap-gold-dim: rgba(255,180,84,0.11);
+          --ap-gold-g:   rgba(255,180,84,0.18);
+          --ap-gold-l:   rgba(255,180,84,0.26);
+          --ap-green:    #4ee39a;
+          --ap-red:      #ff5d7a;
+          --ap-red-dim:  rgba(255,93,122,0.11);
           --mono: "JetBrains Mono", ui-monospace, monospace;
           --sans: "Inter", -apple-system, sans-serif;
+          --display: "Space Grotesk", "Inter", -apple-system, sans-serif;
+          --ease: cubic-bezier(0.16, 1, 0.3, 1);
+          --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .ap {
@@ -259,8 +265,8 @@ export default function Page() {
         .ap-grid {
           position: absolute; inset: 0;
           background-image:
-            linear-gradient(to right,  rgba(0,212,255,0.028) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(0,212,255,0.028) 1px, transparent 1px);
+            linear-gradient(to right,  rgba(47,227,196,0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(47,227,196,0.03) 1px, transparent 1px);
           background-size: 52px 52px;
           mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
         }
@@ -272,8 +278,8 @@ export default function Page() {
             0deg,
             transparent,
             transparent 2px,
-            rgba(0,0,0,0.04) 2px,
-            rgba(0,0,0,0.04) 4px
+            rgba(0,0,0,0.05) 2px,
+            rgba(0,0,0,0.05) 4px
           );
           z-index: 1;
         }
@@ -284,9 +290,14 @@ export default function Page() {
           filter: blur(130px);
           pointer-events: none;
           z-index: 0;
+          will-change: transform;
         }
-        .ap-glow-a { top: -200px; right: -100px; width: 560px; height: 560px; background: var(--ap-cyan); opacity: 0.055; }
-        .ap-glow-b { bottom: -180px; left: -80px; width: 480px; height: 480px; background: var(--ap-gold); opacity: 0.045; }
+        .ap-glow-a { top: -200px; right: -100px; width: 560px; height: 560px; background: var(--ap-cyan); opacity: 0.06; animation: apDriftA 26s ease-in-out infinite; }
+        .ap-glow-b { bottom: -180px; left: -80px; width: 480px; height: 480px; background: var(--ap-gold); opacity: 0.05; animation: apDriftB 32s ease-in-out infinite; }
+        .ap-glow-c { top: 38%; left: 46%; width: 360px; height: 360px; background: #2a1f4d; opacity: 0.5; animation: apDriftC 40s ease-in-out infinite; }
+        @keyframes apDriftA { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-28px, 22px); } }
+        @keyframes apDriftB { 0%,100% { transform: translate(0,0); } 50% { transform: translate(24px, -20px); } }
+        @keyframes apDriftC { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(16px, 14px) scale(1.05); } }
 
         /* Shell */
         .ap-shell {
@@ -303,7 +314,7 @@ export default function Page() {
           align-items: center;
           justify-content: center;
           padding: 56px 40px;
-          background: linear-gradient(135deg, rgba(0,212,255,0.04), rgba(0,212,255,0.01));
+          background: linear-gradient(135deg, rgba(47,227,196,0.045), rgba(47,227,196,0.01));
           border-right: 1px solid var(--ap-soft);
           position: relative;
           overflow: hidden;
@@ -312,7 +323,7 @@ export default function Page() {
         .ap-left::before {
           content: '';
           position: absolute; inset: 0;
-          background: radial-gradient(ellipse 70% 60% at 30% 40%, rgba(0,212,255,0.06), transparent);
+          background: radial-gradient(ellipse 70% 60% at 30% 40%, rgba(47,227,196,0.07), transparent);
         }
 
         .ap-left-inner {
@@ -323,15 +334,16 @@ export default function Page() {
           display: flex;
           flex-direction: column;
           gap: 28px;
+          animation: apPanelIn 640ms var(--ease);
         }
 
         /* Terminal */
         .term-window {
-          background: #020b18;
+          background: #06040d;
           border: 1px solid var(--ap-soft);
           border-radius: 14px;
           overflow: hidden;
-          box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,212,255,0.08);
+          box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(47,227,196,0.09);
         }
 
         .term-bar {
@@ -339,7 +351,7 @@ export default function Page() {
           align-items: center;
           gap: 8px;
           padding: 11px 16px;
-          background: #040d1a;
+          background: #0a0716;
           border-bottom: 1px solid var(--ap-soft);
         }
         .term-dot { width: 11px; height: 11px; border-radius: 50%; }
@@ -362,7 +374,13 @@ export default function Page() {
           gap: 5px;
           min-height: 240px;
         }
-        .term-line  { display: flex; align-items: baseline; gap: 6px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; }
+        .term-line  {
+          display: flex; align-items: baseline; gap: 6px;
+          font-family: var(--mono); font-size: 12.5px; line-height: 1.6;
+          opacity: 0;
+          animation: termLineIn 320ms var(--ease) forwards;
+          animation-delay: calc(var(--li, 0) * 140ms + 260ms);
+        }
         .term-prompt { color: var(--ap-cyan); font-weight: 700; }
         .term-cmd   { color: var(--ap-ink); }
         .term-arg   { color: var(--ap-gold); }
@@ -374,6 +392,10 @@ export default function Page() {
         .term-spacer { height: 6px; }
         .term-dot-anim { animation: dotBlink 1.2s step-end infinite; }
         @keyframes dotBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes termLineIn {
+          from { opacity: 0; transform: translateY(3px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
 
         .term-cursor {
           width: 8px; height: 14px;
@@ -381,10 +403,11 @@ export default function Page() {
           border-radius: 2px;
           margin-top: 4px;
           margin-left: 2px;
-          animation: cursorBlink 1s ease-in-out infinite;
+          animation: cursorBlink 1s ease-in-out infinite, fadeIn 200ms var(--ease) 1.9s both;
           box-shadow: 0 0 8px var(--ap-cyan);
         }
         @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Chips */
         .ap-chips {
@@ -393,16 +416,25 @@ export default function Page() {
           gap: 10px;
         }
         .ap-chip {
-          background: rgba(0,212,255,0.06);
+          background: rgba(47,227,196,0.07);
           border: 1px solid var(--ap-cyan-l);
           border-radius: 12px;
           padding: 14px;
           text-align: center;
+          opacity: 0;
+          animation: apChipIn 420ms var(--ease-spring) forwards;
+          animation-delay: calc(var(--ci, 0) * 90ms + 2.05s);
+          transition: transform 220ms var(--ease), border-color 220ms var(--ease);
+        }
+        .ap-chip:hover {
+          transform: translateY(-2px);
+          border-color: var(--ap-cyan);
         }
         .ap-chip.ap-chip-gold {
           background: var(--ap-gold-dim);
           border-color: var(--ap-gold-l);
         }
+        .ap-chip.ap-chip-gold:hover { border-color: var(--ap-gold); }
         .ap-chip-n {
           display: block;
           font-family: var(--mono);
@@ -410,6 +442,7 @@ export default function Page() {
           font-weight: 800;
           color: var(--ap-ink);
           margin-bottom: 3px;
+          font-variant-numeric: tabular-nums;
         }
         .ap-chip-l {
           display: block;
@@ -419,12 +452,20 @@ export default function Page() {
           letter-spacing: 0.1em;
           color: var(--ap-dim);
         }
+        @keyframes apChipIn {
+          from { opacity: 0; transform: translateY(10px) scale(0.96); }
+          to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
 
         /* Headline */
+        .ap-headline {
+          opacity: 0;
+          animation: apPanelIn 560ms var(--ease) 2.3s forwards;
+        }
         .ap-headline h2 {
-          font-family: var(--mono);
+          font-family: var(--display);
           font-size: 30px;
-          font-weight: 800;
+          font-weight: 700;
           letter-spacing: -0.03em;
           line-height: 1.2;
           color: var(--ap-ink);
@@ -453,6 +494,8 @@ export default function Page() {
           gap: 10px;
           margin-bottom: 28px;
           align-self: center;
+          opacity: 0;
+          animation: apDropIn 480ms var(--ease) 80ms forwards;
         }
         .ap-mark {
           width: 30px; height: 30px;
@@ -483,9 +526,11 @@ export default function Page() {
           border-radius: 16px;
           padding: 28px;
           box-shadow:
-            0 1px 0 rgba(0,212,255,0.04) inset,
-            0 32px 64px -24px rgba(0,0,0,0.7),
-            0 0 0 1px rgba(0,212,255,0.05);
+            0 1px 0 rgba(47,227,196,0.05) inset,
+            0 32px 64px -24px rgba(0,0,0,0.75),
+            0 0 0 1px rgba(47,227,196,0.06);
+          opacity: 0;
+          animation: apCardIn 620ms var(--ease) 160ms forwards;
         }
 
         /* Pipeline */
@@ -519,7 +564,7 @@ export default function Page() {
         .ap-pip-arrow { color: var(--ap-faint); display: flex; }
         .ap-pip-runner {
           position: absolute; top: 0; left: -30%; width: 30%; height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(0,212,255,0.12), transparent);
+          background: linear-gradient(90deg, transparent, rgba(47,227,196,0.14), transparent);
           animation: pipRun 4s ease-in-out infinite;
           pointer-events: none;
         }
@@ -527,7 +572,7 @@ export default function Page() {
 
         /* Card head */
         .ap-card-head { margin-bottom: 20px; }
-        .ap-card-head h1 { font-family: var(--mono); font-size: 20px; font-weight: 700; letter-spacing: -0.025em; color: var(--ap-ink); margin-bottom: 5px; }
+        .ap-card-head h1 { font-family: var(--display); font-size: 21px; font-weight: 700; letter-spacing: -0.025em; color: var(--ap-ink); margin-bottom: 5px; }
         .ap-card-head p  { font-size: 13px; color: var(--ap-dim); }
 
         /* Seg control */
@@ -550,7 +595,7 @@ export default function Page() {
           border-radius: 7px;
           background: var(--ap-cyan-dim);
           border: 1px solid var(--ap-cyan-l);
-          transition: transform .22s cubic-bezier(.22,1,.36,1);
+          transition: transform .3s var(--ease-spring);
           pointer-events: none;
           z-index: 0;
         }
@@ -570,7 +615,12 @@ export default function Page() {
         /* Form */
         .ap-form { display: flex; flex-direction: column; gap: 14px; }
 
-        .ap-field { display: flex; flex-direction: column; gap: 5px; }
+        .ap-field {
+          display: flex; flex-direction: column; gap: 5px;
+          opacity: 0;
+          animation: apFieldIn 340ms var(--ease) forwards;
+          animation-delay: calc(var(--fi, 0) * 55ms);
+        }
         .ap-field-label {
           font-family: var(--mono); font-size: 10px;
           text-transform: uppercase; letter-spacing: 0.1em;
@@ -578,6 +628,10 @@ export default function Page() {
           transition: color .14s;
         }
         .ap-field.focused .ap-field-label { color: var(--ap-cyan); }
+        @keyframes apFieldIn {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
 
         .ap-input {
           appearance: none; width: 100%;
@@ -591,7 +645,7 @@ export default function Page() {
           transition: border-color .14s, box-shadow .14s;
         }
         .ap-input::placeholder { color: var(--ap-faint); font-family: var(--sans); }
-        .ap-input:hover   { border-color: #224060; }
+        .ap-input:hover   { border-color: #4a3f6e; }
         .ap-input:focus   { outline: none; border-color: var(--ap-cyan); box-shadow: 0 0 0 3px var(--ap-cyan-dim); }
 
         .ap-input-wrap { position: relative; display: flex; }
@@ -613,21 +667,31 @@ export default function Page() {
           width: 100%; margin-top: 4px;
           padding: 11px 0;
           border-radius: 8px;
-          background: linear-gradient(135deg, #009ec0 0%, var(--ap-cyan) 55%, #4de8ff 100%);
-          color: #001520;
+          background: linear-gradient(135deg, #0f9e83 0%, var(--ap-cyan) 55%, #7cf3dc 100%);
+          color: #00201a;
           font-family: var(--mono); font-size: 13.5px; font-weight: 800;
           cursor: pointer;
           display: grid; place-items: center;
           min-height: 44px;
+          position: relative;
+          overflow: hidden;
           box-shadow:
             0 1px 0 rgba(255,255,255,0.25) inset,
-            0 8px 22px -6px rgba(0,212,255,0.4);
+            0 8px 22px -6px rgba(47,227,196,0.42);
           transition: filter .14s, transform .08s, box-shadow .14s;
           letter-spacing: -0.01em;
         }
+        .ap-submit::before {
+          content: "";
+          position: absolute; inset: 0;
+          background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.32) 50%, transparent 60%);
+          transform: translateX(-120%);
+          transition: transform 520ms var(--ease);
+        }
+        .ap-submit:hover:not(:disabled)::before { transform: translateX(120%); }
         .ap-submit:hover:not(:disabled) {
           filter: brightness(1.08);
-          box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 12px 32px -6px rgba(0,212,255,0.55);
+          box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 12px 32px -6px rgba(47,227,196,0.58);
           transform: translateY(-1px);
         }
         .ap-submit:active:not(:disabled) { transform: scale(0.99); }
@@ -637,8 +701,8 @@ export default function Page() {
         .ap-spinner {
           width: 15px; height: 15px;
           border-radius: 50%;
-          border: 2px solid rgba(0,21,32,0.25);
-          border-top-color: #001520;
+          border: 2px solid rgba(0,32,26,0.25);
+          border-top-color: #00201a;
           animation: apSpin .65s linear infinite;
         }
         @keyframes apSpin { to { transform: rotate(360deg); } }
@@ -648,11 +712,19 @@ export default function Page() {
           display: flex; align-items: flex-start; gap: 7px;
           padding: 9px 11px;
           background: var(--ap-red-dim);
-          border: 1px solid rgba(255,79,107,0.28);
+          border: 1px solid rgba(255,93,122,0.3);
           border-radius: 7px;
           color: var(--ap-red);
           font-size: 12.5px;
           line-height: 1.45;
+          animation: apShake 420ms var(--ease);
+        }
+        @keyframes apShake {
+          0%, 100% { transform: translateX(0); }
+          20% { transform: translateX(-4px); }
+          40% { transform: translateX(3px); }
+          60% { transform: translateX(-2px); }
+          80% { transform: translateX(1px); }
         }
 
         /* Switch */
@@ -678,6 +750,21 @@ export default function Page() {
           color: var(--ap-faint);
           text-align: center;
           display: flex; align-items: center; justify-content: center;
+          opacity: 0;
+          animation: fadeIn 400ms var(--ease) 480ms forwards;
+        }
+
+        @keyframes apPanelIn {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes apDropIn {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes apCardIn {
+          from { opacity: 0; transform: translateY(16px) scale(0.985); filter: blur(2px); }
+          to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
 
         /* Responsive */
@@ -693,6 +780,9 @@ export default function Page() {
             animation-duration: .001ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: .001ms !important;
+          }
+          .term-line, .ap-chip, .ap-headline, .ap-brand, .ap-card, .ap-field, .ap-footer {
+            opacity: 1 !important;
           }
         }
       `}</style>
