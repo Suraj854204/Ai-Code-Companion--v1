@@ -397,8 +397,16 @@ export default function CodeCompanion() {
   const [codeSearchResult, setCodeSearchResult] = useState<any>(null);
   const [codeSearchLoading, setCodeSearchLoading] = useState(false);
   const [deployFixing, setDeployFixing] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const resultRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Drives the app's one-time entrance choreography (see .cc-app.is-ready
+    // in page.css) — sidebar + header settle in, then the active view fades up.
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   useEffect(() => {
     authApi
@@ -939,7 +947,7 @@ export default function CodeCompanion() {
   ];
 
   return (
-    <main className="cc-app">
+    <main className={`cc-app${mounted ? " is-ready" : ""}`}>
       <div className="glow glow-one" />
       <div className="glow glow-two" />
       <div className="glow glow-three" />
@@ -956,13 +964,14 @@ export default function CodeCompanion() {
           <div className="nav-label">Navigation</div>
 
           <nav className="nav-rail" aria-label="Primary">
-            {navItems.map(({ tab, icon, label, kind, badge }) => (
+            {navItems.map(({ tab, icon, label, kind, badge }, i) => (
               <button
                 key={tab}
                 className={`nav-rail-item ${activeTab === tab ? "active" : ""}`}
                 data-kind={kind}
                 aria-current={activeTab === tab ? "page" : undefined}
                 onClick={() => setActiveTab(tab)}
+                style={{ ["--stagger" as any]: i }}
               >
                 <span className="nav-glyph-svg">{icon}</span>
                 <span className="nav-text">{label}</span>
@@ -1034,7 +1043,7 @@ export default function CodeCompanion() {
             </div>
           </header>
 
-          <div className="view">
+          <div className="view" key={activeTab}>
             {activeTab === "repos" && (
               <RepositoriesTab
                 hasKeys={hasKeys}
@@ -1207,10 +1216,11 @@ function RepositoriesTab({
         </div>
       ) : (
         <div className="repo-board">
-          {repos.map((repo: any) => (
+          {repos.map((repo: any, i: number) => (
             <div
               key={repo.id}
               className={`repo-row ${scanningId === repo.id ? "scanning" : ""}`}
+              style={{ ["--stagger" as any]: i }}
             >
               <div className="repo-row-head">
                 <h3>{repo.full_name}</h3>
@@ -1606,7 +1616,11 @@ function AnalysisTab({
           </div>
           <div className="diff-list">
             {result.report.checks.map((check: any, index: number) => (
-              <div className="diff-row" key={index}>
+              <div
+                className="diff-row"
+                key={index}
+                style={{ ["--stagger" as any]: index }}
+              >
                 <div
                   className={`diff-gutter ${check.passed ? "add" : "remove"}`}
                 >
@@ -1713,7 +1727,11 @@ function PRReviewTab({
           </div>
           <div className="diff-list" style={{ marginTop: 16 }}>
             {prReview.issues?.map((issue: any, index: number) => (
-              <div className="diff-row" key={index}>
+              <div
+                className="diff-row"
+                key={index}
+                style={{ ["--stagger" as any]: index }}
+              >
                 <div className="diff-gutter remove">!</div>
                 <div className="diff-body">
                   <h4>
@@ -1857,7 +1875,11 @@ function SecurityTab({
           </div>
           <div className="diff-list">
             {security.issues.map((issue: any, i: number) => (
-              <div className="diff-row" key={i}>
+              <div
+                className="diff-row"
+                key={i}
+                style={{ ["--stagger" as any]: i }}
+              >
                 <div className="diff-gutter remove">!</div>
                 <div className="diff-body">
                   <h4>{issue.file}</h4>
@@ -1922,7 +1944,11 @@ function ArchitectureTab({
           <h3>Layers</h3>
           <div className="diff-list">
             {architecture.layers?.map((layer: any, i: number) => (
-              <div className="diff-row" key={i}>
+              <div
+                className="diff-row"
+                key={i}
+                style={{ ["--stagger" as any]: i }}
+              >
                 <div className="diff-gutter add">{i + 1}</div>
                 <div className="diff-body">
                   <h4>{layer.name}</h4>
@@ -1993,7 +2019,11 @@ function CodeSearchTab({
           <h3>Relevant Files</h3>
           <div className="diff-list">
             {codeSearchResult.relevant_files?.map((item: any, i: number) => (
-              <div className="diff-row" key={i}>
+              <div
+                className="diff-row"
+                key={i}
+                style={{ ["--stagger" as any]: i }}
+              >
                 <div className="diff-gutter add">{i + 1}</div>
                 <div className="diff-body">
                   <h4>{item.file}</h4>
