@@ -9,6 +9,60 @@ It works like an AI pair programmer combining features inspired by GitHub Copilo
 
 # ✨ Features
 
+# 📸 Product Screenshots
+
+## 🏠 Dashboard
+
+<img src="./Review-Img/pic1.png" alt="Dashboard" width="900"/>
+
+## 🐙 GitHub Repository Integration
+
+<img src="./Review-Img/pic2.png" alt="GitHub Integration" width="900"/>
+
+## 🧠 AI Code Analysis
+
+<img src="./Review-Img/pic3.png" alt="AI Code Analysis" width="900"/>
+
+## 🔎 AI Code Search
+
+<img src="./Review-Img/pic4.png" alt="AI Code Search" width="900"/>
+
+## 🐞 Error Analysis
+
+<img src="./Review-Img/pic5.png" alt="Error Analysis" width="900"/>
+
+## 🤖 AI Auto Fix
+
+<img src="./Review-Img/pic6.png" alt="AI Auto Fix" width="900"/>
+
+## 🧩 Multi-File Fix
+
+<img src="./Review-Img/pic7.png" alt="Multi-File Fix" width="900"/>
+
+## 🔍 Pull Request Review
+
+<img src="./Review-Img/pic8.png" alt="Pull Request Review" width="900"/>
+
+## 🛡️ Security Scanner
+
+<img src="./Review-Img/pic9.png" alt="Security Scanner" width="900"/>
+
+## 🧪 AI Test Generator
+
+<img src="./Review-Img/pic10.png" alt="Test Generator" width="900"/>
+
+## 🏗️ Architecture Analyzer
+
+<img src="./Review-Img/pic11.png" alt="Architecture Analyzer" width="900"/>
+
+## 🚀 Production Readiness
+
+<img src="./Review-Img/pic12.png" alt="Production Readiness" width="900"/>
+
+## 🌿 GitHub Pull Request Automation
+
+<img src="./Review-Img/pic13.png" alt="GitHub PR Automation" width="900"/>
+
 
 ## 🔐 Authentication System
 
